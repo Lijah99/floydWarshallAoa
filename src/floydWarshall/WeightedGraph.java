@@ -23,8 +23,13 @@ public class WeightedGraph
     public void addEdge(int source, int dest, int weight)
     {
         Edge edge = new Edge(source, dest, weight);
+        Edge edgeBack = new Edge(dest, source, weight);
         edgeList.add(edge);
         adjacencyMatrix[source][dest] = weight;
+        // double up for undirected
+        adjacencyMatrix[dest][source] = weight;
+        edgeList.add(edgeBack);
+
     }
 
     public void print()

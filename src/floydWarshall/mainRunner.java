@@ -15,6 +15,13 @@ public class mainRunner
         graph.addEdge(4, 0, 4);
         graph.addEdge(4, 1, 4);
         graph.addEdge(4, 5, 6);
+        Pathfind pathfinder = new Pathfind(graph);
         graph.print();
+
+        pathfinder.floydWarshall(graph);
+        var path = pathfinder.constructPath(5, 1);
+
+        if(path != null)
+            path.forEach((x) -> System.out.println("nodes in path " + x));
     }
 }
