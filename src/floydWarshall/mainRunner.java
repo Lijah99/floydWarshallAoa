@@ -69,7 +69,8 @@ public class mainRunner
                     case "3":
                         JUnitCore junit = new JUnitCore();
                         Result result = junit.run(PathfindTest.class);
-                        System.out.println(result.getFailures());
+                        if(result.wasSuccessful())
+                            System.out.println("Unit tests run for Floyd Warshall Algorithm. They passed successfully!\n");
                         break;
                     default:
                         System.out.println("Invalid option");
