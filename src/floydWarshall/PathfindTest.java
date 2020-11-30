@@ -1,16 +1,16 @@
 package floydWarshall;
 
-import org.hamcrest.CoreMatchers;
+
 import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.Vector;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-class PathfindTest {
+public class PathfindTest {
 
-    @org.junit.jupiter.api.Test
-    void floydWarshall() {
+    @Test
+    public void floydWarshall() {
         WeightedGraph graph = new WeightedGraph(3);
         graph.addUndirectedEdge(0, 1, 1);
         graph.addUndirectedEdge(1, 2, 2);
@@ -24,11 +24,10 @@ class PathfindTest {
         answers.add(1);
         answers.add(2);
         Assert.assertEquals(test, answers);
-        //Assert.assertEquals(test, CoreMatchers.is(answers));
     }
 
-    @org.junit.jupiter.api.Test
-    void constructPath() {
+    @Test
+    public void constructPath() {
         return;
     }
 }

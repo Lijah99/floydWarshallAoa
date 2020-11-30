@@ -1,5 +1,10 @@
 package floydWarshall;
 
+
+import org.junit.runner.JUnitCore;
+import org.junit.runner.Result;
+import org.junit.Test;
+
 import java.util.Scanner;
 
 public class mainRunner
@@ -9,8 +14,8 @@ public class mainRunner
         Scanner cin = new Scanner(System.in);
         String menu =
                 "1) Manual input\n" +
-                        "2) Test 1\n" +
-                        "3) Test 2\n";
+                        "2) Run Example\n" +
+                        "3) Run Algorithm Unit Tests\n";
         String input = "-1";
         while (input != "0") {
             try {
@@ -62,7 +67,9 @@ public class mainRunner
                         test1();
                         break;
                     case "3":
-
+                        JUnitCore junit = new JUnitCore();
+                        Result result = junit.run(PathfindTest.class);
+                        System.out.println(result.getFailures());
                         break;
                     default:
                         System.out.println("Invalid option");
