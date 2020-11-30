@@ -24,23 +24,35 @@ public class WeightedGraph
     public int[][] getAdjacencyMatrix() { return adjacencyMatrix; }
 
     // adds an undirected edge between 2 nodes
-    public void addEdge(int source, int dest, int weight)
+    public void addUndirectedEdge(int source, int dest, int weight)
     {
-        Edge edge = new Edge(source, dest, weight);
-        Edge edgeBack = new Edge(dest, source, weight);
+        Edge edge = new Edge(source, dest, weight, false);
+        //Edge edgeBack = new Edge(dest, source, weight);
         edgeList.add(edge);
         adjacencyMatrix[source][dest] = weight;
         // double up for undirected
         adjacencyMatrix[dest][source] = weight;
-        edgeList.add(edgeBack);
 
+    }
+
+    public void addDirecetedEdge(int source, int dest, int weight)
+    {
+        Edge edge = new Edge(source, dest, weight, true);
+        //Edge edgeBack = new Edge(dest, source, weight);
+        edgeList.add(edge);
+        adjacencyMatrix[source][dest] = weight;
     }
 
     // prints the edge list
     public void print()
     {
         for (Edge temp : edgeList)
-            System.out.println("Vertex: " + temp.source + "->" + temp.dest + " Weight: " + temp.weight);
+        {
+            if(temp.directed)
+                System.out.println("Vertex: " + temp.source + "->" + temp.dest + " Weight: " + temp.weight);
+            else
+                System.out.println("Vertex: " + temp.source + "<->" + temp.dest + " Weight: " + temp.weight);
+        }
     }
 
     // Edge subclass of the weighted graph
@@ -49,9 +61,11 @@ public class WeightedGraph
         int source;
         int dest;
         int weight;
+        boolean directed;
 
-        public Edge(int source, int destination, int weight)
+        public Edge(int source, int destination, int weight, boolean directed)
         {
+            this.directed = directed;
             this.source = source;
             this.dest = destination;
             this.weight = weight;
