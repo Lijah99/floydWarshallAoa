@@ -8,42 +8,44 @@ public class Pathfind {
     final static int INF = 99999;
     private int dist[][];
     private int next[][];
-    public int V;
+    private int tempAdjMatrix[][];
+    private int vertices;
+    private WeightedGraph graph;
 
+    // pathfind class constructor
     Pathfind(WeightedGraph graph)
     {
-        V = graph.getVertices();
-        System.out.println("VERTICES:" + V);
-        dist = new int [V][V];
-        next = new int [V][V];
+        // grab weighted graph information and store
+        this.graph = graph;
+        tempAdjMatrix = graph.getAdjacencyMatrix();
+        vertices = graph.getVertices();
+        // grab and set dist and next matrices
+        dist = new int [vertices][vertices];
+        next = new int [vertices][vertices];
         for(int[] row : dist)
             java.util.Arrays.fill(row, INF);
         for(int[] row : next)
             java.util.Arrays.fill(row, -1);
     }
 
-
     // map is the adjacency matrix of weights, takes map and vertices
-    void floydWarshall(WeightedGraph graph)
+    void floydWarshall()
     {
         // path reconstruction
-        for (int i = 0; i < V; i++)
-            for (int j = 0; j < V; j++)
+        for (int i = 0; i < vertices; i++)
+            for (int j = 0; j < vertices; j++)
             {
-                dist[i][j] = graph.adjacencyMatrix[i][j];
-                if (graph.adjacencyMatrix[i][j] == INF)
+                dist[i][j] = tempAdjMatrix[i][j];
+                if (tempAdjMatrix[i][j] == INF)
                     next[i][j] = -1;
                 else
                     next[i][j] = j;
             }
-
-        for (int k = 0; k < V; k++)
-            for (int i = 0; i < V; i++)
-                for (int j = 0; j < V; j++)
+        // distance O(n^3) algorithm for finding all pairs shortest path
+        for (int k = 0; k < vertices; k++)
+            for (int i = 0; i < vertices; i++)
+                for (int j = 0; j < vertices; j++)
                 {
-                    //if (dist[i][k] + dist[k][j] < dist[i][j])
-                    // old    dist[i][j] = dist[i][k] + dist[k][j];
-
                     if (dist[i][k] == INF || dist[k][j] == INF)
                         continue;
 
@@ -56,18 +58,18 @@ public class Pathfind {
         
     }
 
+    //
     public Vector<Integer> constructPath(int u, int v)
     {
+        Vector<Integer> path = new Vector<Integer>();
         if (next[u][v] == -1)
         {
             System.out.println("Won't work, no valid path");
             return null;
         }
 
-        // Storing the path in a vector
-        Vector<Integer> path = new Vector<Integer>();
+        // add initial node, keep adding until you reach the end
         path.add(u);
-
         while (u != v)
         {
             u = next[u][v];
@@ -80,6 +82,7 @@ public class Pathfind {
     // method to get the number of vertices(elements) in an array/map
     public static int size(Object object)
     {
+        // check to see if the object is an array
         if (!object.getClass().isArray())
             return 1;
 

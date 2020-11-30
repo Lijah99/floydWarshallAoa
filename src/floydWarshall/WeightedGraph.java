@@ -7,9 +7,9 @@ import java.util.List;
 public class WeightedGraph
 {
     // Graph subclass of the weighted graph
-    public int vert;
-    public int[][] adjacencyMatrix;
-    public List<Edge> edgeList = new ArrayList<Edge>();
+    private int vert;
+    private int[][] adjacencyMatrix;
+    private List<Edge> edgeList = new ArrayList<Edge>();
 
     WeightedGraph(int vert)
     {
@@ -18,8 +18,12 @@ public class WeightedGraph
         for(int[] row : adjacencyMatrix)
             java.util.Arrays.fill(row, Pathfind.INF);
     }
+    // get number of vertices from the graph
     public int getVertices() { return vert; }
 
+    public int[][] getAdjacencyMatrix() { return adjacencyMatrix; }
+
+    // adds an undirected edge between 2 nodes
     public void addEdge(int source, int dest, int weight)
     {
         Edge edge = new Edge(source, dest, weight);
@@ -32,6 +36,7 @@ public class WeightedGraph
 
     }
 
+    // prints the edge list
     public void print()
     {
         for (Edge temp : edgeList)
