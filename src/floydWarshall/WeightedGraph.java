@@ -35,7 +35,7 @@ public class WeightedGraph
 
     }
 
-    public void addDirecetedEdge(int source, int dest, int weight)
+    public void addDirectedEdge(int source, int dest, int weight)
     {
         Edge edge = new Edge(source, dest, weight, true);
         //Edge edgeBack = new Edge(dest, source, weight);
