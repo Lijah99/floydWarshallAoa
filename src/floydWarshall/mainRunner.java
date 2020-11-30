@@ -13,7 +13,7 @@ public class mainRunner
         Scanner cin = new Scanner(System.in);
         String menu =
                 "1) Manual input\n" +
-                        "2) Run Example\n" +
+                        "2) Run Example Directed Gamespace\n" +
                         "3) Run Algorithm Unit Tests\n";
         String input = "-1";
         while (input != "0") {
@@ -63,7 +63,7 @@ public class mainRunner
                         }
                         break;
                     case "2":
-                        test1();
+                        exampleRun();
                         break;
                     case "3":
                         JUnitCore junit = new JUnitCore();
@@ -84,12 +84,13 @@ public class mainRunner
         }
     }
 
-    public static void test1() {
+    public static void exampleRun() {
         int vertices = 6;
         WeightedGraph graph = new WeightedGraph(vertices);
+        System.out.println("---GAMESPACE CONNECTIONS---");
         graph.addDirectedEdge(0, 1, 4);
         graph.addDirectedEdge(0, 2, 3);
-        graph.addDirectedEdge(1, 3, 2);
+        graph.addDirectedEdge(1, 3, 30);
         graph.addDirectedEdge(1, 2, 5);
         graph.addDirectedEdge(2, 3, 7);
         graph.addDirectedEdge(3, 4, 2);
@@ -98,12 +99,32 @@ public class mainRunner
         graph.addDirectedEdge(4, 5, 6);
         Pathfind pathfinder = new Pathfind(graph);
         graph.print();
+        System.out.println();
 
         pathfinder.floydWarshall();
-        var path = pathfinder.constructPath(5, 1);
 
-        if(path != null)
-            path.forEach((x) -> System.out.println("nodes in path " + x));
+        System.out.println("Testing to see if location 5 can reach 1, it shouldn't be able to:");
+        var path = pathfinder.constructPath(5, 1);
         System.out.println();
+
+        System.out.println("Testing to see if 1 can reach 5, it has a valid connection:");
+        path = pathfinder.constructPath(1, 5);
+
+        if(path != null) {
+            System.out.print("Path: ");
+            path.forEach((x) -> System.out.print("->" + x));
+            System.out.println();
+            System.out.println();
+        }
+
+
+        System.out.println("Testing 1 -> 3, displays the shortest path, chooses 1->2->3, ignores 1->3:");
+        path = pathfinder.constructPath(1, 3);
+
+        if(path != null) {
+            System.out.print("Path: ");
+            path.forEach((x) -> System.out.print("->" + x));
+            System.out.println();
+        }
     }
 }
