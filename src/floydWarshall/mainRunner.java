@@ -3,7 +3,6 @@ package floydWarshall;
 
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
-import org.junit.Test;
 
 import java.util.Scanner;
 
