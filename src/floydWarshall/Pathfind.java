@@ -35,9 +35,12 @@ public class Pathfind {
         for (int i = 0; i < vertices; i++)
             for (int j = 0; j < vertices; j++)
             {
+                // set base distance to adj matrix
                 dist[i][j] = tempAdjMatrix[i][j];
+                // if there is no connection, set next connect to -1
                 if (tempAdjMatrix[i][j] == INF)
                     next[i][j] = -1;
+                // else set next to direct connection
                 else
                     next[i][j] = j;
             }
@@ -46,9 +49,10 @@ public class Pathfind {
             for (int i = 0; i < vertices; i++)
                 for (int j = 0; j < vertices; j++)
                 {
+                    // if no connection, ignore
                     if (dist[i][k] == INF || dist[k][j] == INF)
                         continue;
-
+                    // if there is a smaller distance found, set dist with new smaller dist
                     if (dist[i][j] > dist[i][k] + dist[k][j])
                     {
                         dist[i][j] = dist[i][k] + dist[k][j];
@@ -58,7 +62,7 @@ public class Pathfind {
         
     }
 
-    //
+    // construct path from u to v if possible using next
     public Vector<Integer> constructPath(int u, int v)
     {
         Vector<Integer> path = new Vector<Integer>();
